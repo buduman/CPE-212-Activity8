@@ -1,31 +1,26 @@
 ---
+- name: Install Nagios (Ubuntu)
+  apt:
+    name: nagios3-core
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: start nagios (Ubuntu)
+  service:
+    name: nagios3
+    state: restarted
+    enabled: true
+  when: ansible_distribution == "Ubuntu"
+
 - name: install nagios reqs (Ubuntu)
   apt:
    name:
-    - autoconf
+    - libpng-dev
+    - libfreetype6-dev
     - gcc
-    - libc6
-    - make
-    - wget
-    - unzip
-    - libssl-dev
+    - libc6-dev
     - apache2
     - php
-    - libapache2-mod-php7.2
     - libgd-dev
-    - build-essential
    state: latest
-   force: true
-   update_cache: true
-  become: true
   when: ansible_distribution == "Ubuntu"
-
-- name: install nagios (Ubuntu)
-  unarchive:
-    src: https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.14.tar.gz
-    dest: /usr/local/bin
-    remote_src: yes
-    mode: 0755
-    owner: root
-    group: root
-
