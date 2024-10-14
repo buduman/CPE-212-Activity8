@@ -1,0 +1,21 @@
+---
+- name: install nagios reqs (Ubuntu)
+  apt:
+   name:
+    - autoconf
+    - gcc
+    - libc6
+    - make
+    - wget
+    - unzip
+    - libssl-dev
+    - apache2
+    - php
+    - libapache2-mod-php7.2
+    - libgd-dev
+    - build-essential
+   state: latest
+   force: true
+   update_cache: true
+  become: true
+  when: ansible_distribution == "Ubuntu"

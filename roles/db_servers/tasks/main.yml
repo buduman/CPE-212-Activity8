@@ -1,0 +1,27 @@
+---
+- name: install nagios reqs (CentOS)
+  yum:
+   name:
+    - gcc
+    - glibc-common
+    - wget
+    - unzip
+    - httpd
+    - php
+    - gd
+    - gd-devel
+    - perl
+    - postfix
+    - openssl-devel
+   state: latest
+  become: true
+  when: ansible_distribution == "CentOS"
+
+- name: install nagios (CentOS)
+  unarchive:
+    src: https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.14.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: 0755
+    owner: root
+    group: root
